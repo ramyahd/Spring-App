@@ -7,12 +7,19 @@ pipeline {
 
     stages {
 
-      stage('clean and build')
-            {
-                steps
-                 { 
-                    sh 'mvn clean package'
-                 }
+     
+            stage('Build and Unit test') {
+                agent { label 'maven' }
+                steps {
+                    script {
+                        module_Maven('clean verify')
+                    }
+                }
+                post {
+                    always {
+                        junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: false
+                    }
+                }
             }
 //        stage('Deployment to AWS'){
   //          steps{
