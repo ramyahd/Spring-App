@@ -12,6 +12,12 @@ pipeline {
                  { 
                     sh 'mvn clean package'
                  }
+            
+         post {
+                    always {
+                        junit testResults: '/target/surefire-reports/*.xml', allowEmptyResults: false
+                    }
+                }
             }
 //        stage('Deployment to AWS'){
   //          steps{
