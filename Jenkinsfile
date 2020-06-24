@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     tools{
@@ -7,18 +6,12 @@ pipeline {
 
     stages {
 
-     
-            stage('Build and Unit test') {
-                steps {
-                    script {
-                        sh 'mvn clean package'
-                    }
-                }
-                post {
-                    always {
-                        junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: false
-                    }
-                }
+      stage('clean and build')
+            {
+                steps
+                 { 
+                    sh 'mvn clean package'
+                 }
             }
 //        stage('Deployment to AWS'){
   //          steps{
