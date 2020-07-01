@@ -22,7 +22,7 @@ pipeline {
        stage('Deployment to AWS'){
             steps{
     
- deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.235.95.31:8090/')], contextPath: '/cur', war: '**/*.war'
+             deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.235.95.31:8090/')], contextPath: '/cur', war: '**/*.war'
 
             //withCredentials([usernamePassword(credentialsId: 'tomcatCredentials', passwordVariable: 'password', usernameVariable: 'username'),string(credentialsId: 'TOMCAT_URL', variable: 'tomcat_url')]){
               //      sh 'curl ${tomcat_url}/manager/text/undeploy?path=/BMI -u ${username}:${password}'
