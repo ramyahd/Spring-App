@@ -16,3 +16,4 @@ public class SpringbootAssignmentApplication extends ServletInitializer {
 	      return builder.sources(SpringbootAssignmentApplication.class);
 
 }
+}
