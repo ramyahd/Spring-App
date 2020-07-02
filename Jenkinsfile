@@ -22,13 +22,13 @@ pipeline {
        stage('Deployment to AWS'){
             steps{
     
-             deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.235.95.31:8090/')], contextPath: '/cur', war: '**/*.war'
+             //deploy adapters: [tomcat9(credentialsId: 'Tomcat', path: '', url: 'http://13.235.95.31:8090/')], contextPath: '/cur', war: '**/*.war'
 
-            //withCredentials([usernamePassword(credentialsId: 'tomcatCredentials', passwordVariable: 'password', usernameVariable: 'username'),string(credentialsId: 'TOMCAT_URL', variable: 'tomcat_url')]){
-              //      sh 'curl ${tomcat_url}/manager/text/undeploy?path=/BMI -u ${username}:${password}'
-                //    sh 'curl -v -u ${username}:${password} -T target/SpringBootHelloWorld-0.0.1-SNAPSHOT${BUILD_NUMBER}.war ${tomcat_url}/manager/text/deploy?path=/BMI'
-                //}
-            }
-        }
+            withCredentials([usernamePassword(credentialsId: 'Tomcat', passwordVariable: 'password', usernameVariable: 'username')
+                {
+                    sh 'curl http://13.235.95.31:8090/manager/text/undeploy?path=/cur -u ${username}:${password}'
+                    sh 'curl -v -u ${username}:${password} -T target/Spring-aoo-0.0.1-SNAPSHOT${BUILD_NUMBER}.war http://3.128.155.152:8090/manager/text/deploy?path=/cur'
+                }
+                
 }
 }
